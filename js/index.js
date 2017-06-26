@@ -11,8 +11,37 @@ function runAllTests(){
     runFractionTests();
     runTermRepresentationTests();
     runTermOperationTests();
+    runExpressionOperationTests();
 }
 
+function runExpressionOperationTests(){
+    console.log("========= Running tests for Expression operations =========");
+    /*var e = new Expression(new Term(2, 'x'));
+    console.log(e.toString());
+    e = e.add(new Expression(new Term(3, 'y', 2)));
+    console.log(e.toString());
+    e = e.sub(new Expression(new Term(5, 'z', -1)));
+    console.log(e.toString());
+    e = e.sub(new Expression(new Term(2, 'y', 2)));
+    console.log(e.toString());
+    e = e.sub(new Expression(new Term(1, 'y', 2)));
+    console.log(e.toString());
+    e = e.add(new Expression(new Term(4, 'z', 2)));
+    console.log(e.toString());
+    e = e.add(new Expression(new Term(5, 'z', -1)));
+    console.log(e.toString());
+    e = e.sub(new Expression(new Term(2, 'x', 1)));
+    console.log(e.toString());
+    e = e.sub(new Expression(new Term(4, 'z', 2)));
+    console.log(e.toString());*/
+    /*var e1 = new Expression(new Term(1, 'a')).add(new Expression(new Term(1, 'b'))),
+        e2 = new Expression(new Term(1, 'b')).add(new Expression(new Term(1, 'a')));
+    console.log('('+e1.toString()+')('+e2.toString()+') = '+e1.mult(e2).toString());*/
+    var e = new Expression(new Term(1, 'a')).add(new Expression(new Term(1, 'b')));
+    var p = 10;
+    console.log('('+e.toString()+')^'+p+' = '+e.pow(p).toString());
+    console.log("========= Expression operation tests complete =========");
+}
 function runTermOperationTests(){
     console.log("========= Running tests for Term operations =========");
     var tests = [
@@ -129,6 +158,30 @@ function runTermOperationTests(){
             term2: new Term(9, 'y', -3),
             op: '/',
             out: new Term(new Fraction(1, 3), ['x', 'y'], [1, 3])
+        },
+        {
+            term1: new Term(3),
+            term2: 2,
+            op: '^',
+            out: new Term(9)
+        },
+        {
+            term1: new Term(3),
+            term2: -2,
+            op: '^',
+            out: new Term(new Fraction(1, 9))
+        },
+        {
+            term1: new Term(2, 'x', 5),
+            term2: -1,
+            op: '^',
+            out: new Term(0.5, 'x', -5)
+        },
+        {
+            term1: new Term(3, ['x', 'y', 'z'], [2,3,new Fraction(-1, 3)]),
+            term2: -3,
+            op: '^',
+            out: new Term(new Fraction(1, 27), ['x', 'y', 'z'], [-6, -9, 1])
         }
     ];
     for(var i = 0; i < tests.length; i++){
@@ -145,6 +198,9 @@ function runTermOperationTests(){
                     break;
                 case '/':
                     var res = tests[i].term1.div(tests[i].term2);
+                    break;
+                case '^':
+                    var res = tests[i].term1.pow(tests[i].term2);
                     break;
             }
             if(res.equals(tests[i].out)){

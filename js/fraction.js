@@ -33,6 +33,9 @@ Fraction.prototype.sub = function(other){
 }
 
 Fraction.prototype.mult = function(other){
+    if(typeof other === 'number'){
+        other = new Fraction(other);
+    }
     var ret = new Fraction(this.top*other.top, this.bottom*other.bottom);
     return ret;
 }
@@ -40,6 +43,21 @@ Fraction.prototype.mult = function(other){
 Fraction.prototype.div = function(other){
     var ret = new Fraction(this.top*other.bottom, this.bottom*other.top);
     return ret;
+}
+
+Fraction.prototype.pow = function(e){
+    if(e !== parseInt(e)){
+        throw 'The exponent must be an integer!';
+    }
+    if(e < 0){
+        return new Fraction(this.bottom, this.top).pow(-e);
+    }
+    if(e === 0){
+        return new Fraction(1);
+    }
+    var ee = Math.floor(e/2);
+    var res = this.pow(ee);
+    return e%2 === 0 ? res.mult(res) : res.mult(res).mult(this);
 }
 
 Fraction.prototype.toString = function(){

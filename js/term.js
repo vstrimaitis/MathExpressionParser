@@ -131,6 +131,22 @@ Term.prototype.mult = function(other){
     return new Term(c, variables, powers);
 }
 
+Term.prototype.pow = function(e){
+    if(e !== parseInt(e)){
+        throw 'The exponent must be an integer!';
+    }
+    if(e < 0){
+        var t = new Term(this.coefficient.pow(-1), this.variables.map(x => x.name), this.variables.map(x => x.power.mult(-1)));
+        return t.pow(-e);
+    }
+    if(e === 0){
+        return new Term(1);
+    }
+    var ee = Math.floor(e/2);
+    var res = this.pow(ee);
+    return e%2 === 0 ? res.mult(res) : res.mult(res).mult(this);
+}
+
 Term.prototype.div = function(other){
     var coeff = new Fraction(1).div(other.coefficient);
     var varNames = [], powers = [];
