@@ -56,6 +56,13 @@ Fraction.prototype.equals = function(other){
     return this.top*other.bottom === this.bottom*other.top;
 }
 
+Fraction.prototype.greaterThan = function(other){
+    return this.top*other.bottom > other.top*this.bottom;
+}
+
+Fraction.prototype.lessThan = function(other){
+    return this.top*other.bottom < other.top*this.bottom;
+}
 function parseFraction(text){
     if(!text){
         return new Fraction();
