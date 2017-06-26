@@ -1,9 +1,24 @@
-function Expression(variable){
-    this.terms = [];
+function Expression(term){
+    this.terms = [term];
 }
 
 Expression.prototype.add = function(other){
+    var used = [];
+    for(var i = 0; i < other.terms.length; i++){
+        used.push(false);
+    }
+    for(var i = 0; i < this.terms.length; i++){
+        for(var j = 0; j < other.terms.length; j++){
+            if(used[j]){
+                continue;
+            }
+            if(this.terms[i].variableSetEquals(other.terms[j])){
+                // TODO
+            } else{
 
+            }
+        }
+    }
 }
 
 Expression.prototype.sub = function(other){

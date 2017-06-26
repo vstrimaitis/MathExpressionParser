@@ -148,12 +148,12 @@ function runTermOperationTests(){
                     break;
             }
             if(res.equals(tests[i].out)){
-                console.log((i+1)+".", "OK");
+                console.log((i+1)+". OK");
             } else{
-                console.log((i+1)+".", "WA. Expected: "+tests[i].out.toString()+", actual: "+res.toString());
+                console.log((i+1)+". " + "WA. Expected: "+tests[i].out.toString()+", actual: "+res.toString());
             }
         } catch(ex){
-            console.log((i+1)+".", tests[i].out === null ? "OK" : "WA");
+            console.log((i+1)+". "+ (tests[i].out === null ? "OK" : "WA"));
         }
     }
     console.log("========= Term operations tests complete =========");
@@ -191,7 +191,7 @@ function runTermRepresentationTests(){
         }
     ];
     for(var i = 0; i < tests.length; i++){
-        console.log((i+1)+".", tests[i].term.toString() === tests[i].strRep ? "OK" : "WA. Expected: "+tests[i].strRep+", actual: "+tests[i].term.toString());
+        console.log((i+1)+". "+(tests[i].term.toString() === tests[i].strRep ? "OK" : "WA. Expected: "+tests[i].strRep+", actual: "+tests[i].term.toString()));
     }
     console.log("========= Term representation tests complete =========");
 }
@@ -282,15 +282,15 @@ function runFractionTests(){
     for(var i = 0; i < tests.length; i++){
         try{
             if(tests[i].output === null && parseFraction(tests[i].input) === null){
-                console.log((i+1)+".", "OK");
+                console.log((i+1)+". OK");
                 continue;
             } else if(tests[i].output === null){
-                console.log((i+1)+".", "WA. Expected error, got "+parseFraction(tests[i].input).toString());
+                console.log((i+1)+". "+ "WA. Expected error, got "+parseFraction(tests[i].input).toString());
                 continue;
             }
-            console.log((i+1)+".", tests[i].output.equals(parseFraction(tests[i].input)) ? "OK" : "WA. Expected: "+tests[i].output.toString()+", actual: "+parseFraction(tests[i].input).toString());
+            console.log((i+1)+". "+ (tests[i].output.equals(parseFraction(tests[i].input)) ? "OK" : "WA. Expected: "+tests[i].output.toString()+", actual: "+parseFraction(tests[i].input).toString()));
         } catch (ex){
-            console.log((i+1)+".", "WA: crash");
+            console.log((i+1)+". WA: crash");
         }
     }
     console.log("========= Fraction tests complete =========");

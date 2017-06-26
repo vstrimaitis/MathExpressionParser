@@ -3,14 +3,26 @@
     <head>
         <meta charset="utf-8">
         <title>Math expression parser</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <form onsubmit="parse();return false;">
-            <input type="text" id="inputBox">
-            <button type="submit">Parse</button>
-        </form>
-        <p id="output"></p>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <form onsubmit="parse();return false;">
+                        <input type="text" id="inputBox">
+                        <button type="submit">Parse</button>
+                    </form>
+                    <p id="output"></p>
+                </div>
+                <div class="col-6">
+                    <pre id="consoleOutput"><code></code></pre>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/mathHelper.js"></script>
         <script type="text/javascript" src="js/fraction.js"></script>
         <script type="text/javascript" src="js/term.js"></script>
