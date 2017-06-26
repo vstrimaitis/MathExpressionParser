@@ -46,6 +46,13 @@ Fraction.prototype.div = function(other){
 }
 
 Fraction.prototype.pow = function(e){
+    if(e instanceof Fraction){
+        if(e.bottom === 1){
+            e = e.top;
+        } else{
+            throw 'Fractions are not supported yet!'
+        }
+    }
     if(e !== parseInt(e)){
         throw 'The exponent must be an integer!';
     }
@@ -82,6 +89,9 @@ Fraction.prototype.lessThan = function(other){
     return this.top*other.bottom < other.top*this.bottom;
 }
 function parseFraction(text){
+    if(text instanceof Fraction){
+        return text;
+    }
     if(!text){
         return new Fraction();
     }

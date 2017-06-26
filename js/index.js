@@ -11,7 +11,35 @@ function runAllTests(){
     runFractionTests();
     runTermRepresentationTests();
     runTermOperationTests();
+    runTermEvaluationTests();
     runExpressionOperationTests();
+    runExpressionEvaluationTests();
+}
+
+function runExpressionEvaluationTests(){
+    console.log("========= Running tests for Expression evaluation =========");
+    var tests = [
+        {
+            expr: new Expression(new Term(1, 'a')).add(new Expression(new Term(1, 'b'))),
+            values: {a: 2, b: 3},
+            out: new Expression(new Term(5))
+        },
+        {
+            expr: new Expression(new Term(1, 'a')).add(new Expression(new Term(2, 'b', 3))),
+            values: {a: 5, b: 3},
+            out: new Expression(new Term(59))
+        },
+        {
+            expr: new Expression(new Term(1, 'a')).add(new Expression(new Term(2, 'b', 3))),
+            values: {b: 3},
+            out: new Expression(new Term(54)).add(new Expression(new Term(1, 'a')))
+        },
+    ];
+    for(var i = 0; i < tests.length; i++){
+        var res = tests[i].expr.evaluate(tests[i].values);
+        console.log((i+1)+". "+ (res.equals(tests[i].out) ? "OK" : "WA. Expected: "+tests[i].out.toString()+", actual: "+res.toString()));
+    }
+    console.log("========= Expression evaluation tests complete =========");
 }
 
 function runExpressionOperationTests(){
@@ -41,6 +69,48 @@ function runExpressionOperationTests(){
     var p = 10;
     console.log('('+e.toString()+')^'+p+' = '+e.pow(p).toString());
     console.log("========= Expression operation tests complete =========");
+}
+
+function runTermEvaluationTests(){
+    console.log("========= Running tests for Term evaluation =========");
+    var tests = [
+        {
+            term: new Term(1),
+            values: {},
+            out: new Term(1)
+        },
+        {
+            term: new Term(1, 'x'),
+            values: {},
+            out: new Term(1, 'x')
+        },
+        {
+            term: new Term(1, 'x'),
+            values: {x: 5},
+            out: new Term(5)
+        },
+        {
+            term: new Term(3, ['x', 'y'], [2, 1]),
+            values: {x: 2, y: new Fraction(1, 3)},
+            out: new Term(4)
+        },
+        {
+            term: new Term(new Fraction(1, 3), ['x', 'y'], [2, 1]),
+            values: {x: 2},
+            out: new Term(new Fraction(4, 3), 'y')
+        },
+        {
+            term: new Term(new Fraction(1, 3), ['x', 'y', 'z'], [2, 1, 3]),
+            values: {y: 4, z: 3},
+            out: new Term(36, 'x', 2)
+        }
+    ];
+
+    for(var i = 0; i < tests.length; i++){
+        var res = tests[i].term.evaluate(tests[i].values);
+        console.log((i+1)+". "+ (res.equals(tests[i].out) ? "OK" : "WA. Expected: "+tests[i].out.toString()+", actual: "+res.toString()));
+    }
+    console.log("========= Term evaluation tests complete =========");
 }
 function runTermOperationTests(){
     console.log("========= Running tests for Term operations =========");

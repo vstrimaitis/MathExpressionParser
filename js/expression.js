@@ -73,6 +73,29 @@ Expression.prototype.div = function(other){
     return this.mult(frac.pow(-1));
 }
 
+Expression.prototype.evaluate = function(vals){
+    var ans = new Expression();
+    for(var i = 0; i < this.terms.length; i++){
+        var evaluatedTerm = this.terms[i].evaluate(vals);
+        ans = ans.add(new Expression(evaluatedTerm));
+    }
+    return ans;
+}
+
+Expression.prototype.equals = function(other){
+    if(this.terms.length !== other.terms.length){
+        return false;
+    }
+    var first = this.terms.slice().sort((x, y) => {return x.coefficient < y.coefficient});
+    var second = other.terms.slice().sort((x, y) => {return x.coefficient < y.coefficient});
+    for(var i = 0; i < first.length; i++){
+        if(!first[i].equals(second[i])){
+            return false;
+        }
+    }
+    return true;
+}
+
 Expression.prototype.toString = function(){
     if(this.terms.length === 0){
         return "0";

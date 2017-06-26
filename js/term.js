@@ -157,3 +157,17 @@ Term.prototype.div = function(other){
     var newTerm = new Term(coeff, varNames, powers);
     return this.mult(newTerm);
 }
+
+Term.prototype.evaluate = function(vals){
+    var ans = new Term(this.coefficient);
+    for(var i = 0; i < this.variables.length; i++){
+        var varName = this.variables[i].name;
+        var val = parseFraction(vals[varName]);
+        var t = new Term(1, this.variables[i].name, this.variables[i].power);
+        if(vals[varName] !== undefined && val !== null){
+            t = new Term(val.pow(this.variables[i].power));
+        }
+        ans = ans.mult(t);
+    }
+    return ans;
+}
